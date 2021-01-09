@@ -7,9 +7,20 @@
 
 import Vue from 'vue'
 import App from '../app.vue'
+import ApolloClient from "apollo-boost"
+import VueApollo from "vue-apollo"
+
+const apolloClient = new ApolloClient({
+  uri: 'http://localhost:3000/graphql'
+})
+Vue.use(VueApollo)
+const apolloProvider = new VueApollo({
+  defaultClient: apolloClient,
+})
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
+    apolloProvider,
     render: h => h(App)
   }).$mount()
   document.body.appendChild(app.$el)
