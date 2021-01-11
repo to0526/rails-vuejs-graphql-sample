@@ -1,11 +1,24 @@
 <template>
   <div id="app">
     <p>{{ testField }}</p>
-    <ul>
-      <li v-for="task in tasks">
-        {{ task }}
-      </li>
-    </ul>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>タイトル</th>
+          <th>作成日時</th>
+          <th>更新日時</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="task in tasks">
+          <td>{{ task.id }}</td>
+          <td>{{ task.title }}</td>
+          <td>{{ task.createdAt }}</td>
+          <td>{{ task.updatedAt }}</td>
+        </tr>
+      </tbody>
+    </table>
     <input v-model="title">
     <button v-on:click="handleClick">
       タスク登録
