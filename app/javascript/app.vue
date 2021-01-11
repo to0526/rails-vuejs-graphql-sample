@@ -6,6 +6,10 @@
         {{ task }}
       </li>
     </ul>
+    <input v-model="title">
+    <button v-on:click="handleClick">
+      タスク登録
+    </button>
   </div>
 </template>
 
@@ -15,7 +19,8 @@ import gql from "graphql-tag"
 export default {
   data: function () {
     return {
-      message: "Hello Vue!"
+      message: "Hello Vue!",
+      title: "",
     }
   },
   apollo: {
@@ -30,6 +35,26 @@ export default {
         updatedAt
       }
     }`,
+  },
+  methods: {
+    async handleClick() {
+      const result = await this.$apollo.mutate({
+        mutation: gql`mutation ($title: String!) {
+          createTask(
+            input: {
+              title: $title
+            }
+          ) {
+            task {
+              id
+            }
+          }
+        }`,
+        variables: {
+          title: this.title
+        }
+      })
+    }
   }
 }
 </script>
