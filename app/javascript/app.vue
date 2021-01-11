@@ -47,12 +47,20 @@ export default {
           ) {
             task {
               id
+              title
+              createdAt
+              updatedAt
             }
           }
         }`,
         variables: {
           title: this.title
         }
+      }).then((data) => {
+        console.log(data)
+        this.tasks.push(data.data.createTask.task)
+      }).catch((error) => {
+        console.error(error)
       })
     }
   }
